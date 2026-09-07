@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#09192f" />
+  <title>Thermodynamics Lab</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="eyebrow">INTERACTIVE PHYSICS LAB</div>
+    <h1>Thermodynamics <span>Lab</span></h1>
+    <p>See the First Law connect a moving piston, P–V path and energy balance in real time.</p>
+  </header>
+
+  <main>
+    <nav class="process-tabs" aria-label="Lab sections">
+      <button class="tab active" data-process="isobaric">Isobaric <small>P constant</small></button>
+      <button class="tab" data-process="isochoric">Isochoric <small>V constant</small></button>
+      <button class="tab" data-process="isothermal">Isothermal <small>T constant</small></button>
+      <button class="tab" data-process="adiabatic">Adiabatic <small>Q = 0</small></button>
+      <button class="tab" data-process="firstlaw">First Law <small>energy balance</small></button>
+      <button class="tab" data-process="compare">Compare <small>all four</small></button>
+    </nav>
+
+    <section id="simulation" aria-live="polite">
+      <div class="title-row">
+        <div>
+          <div class="eyebrow" id="process-kicker">CONSTANT PRESSURE</div>
+          <h2 id="process-title">Isobaric process</h2>
+          <p id="process-definition">Pressure stays fixed while volume and temperature change together.</p>
+        </div>
+        <div class="constant-badge" id="constant-badge">P = constant</div>
+      </div>
+
+      <div class="lab-grid">
+        <section class="panel cylinder-panel" aria-label="Ideal gas cylinder">
+          <div class="panel-title"><span>Ideal gas cylinder</span><span id="motion-label" class="motion-label">ready</span></div>
+          <div class="cylinder-stage">
+            <div class="heat-arrow left" id="heat-arrow"><span></span><b>+Q</b></div>
+            <div class="cylinder" id="cylinder">
+              <div class="piston" id="piston"><i></i><span>PISTON</span></div>
+              <div class="gas" id="gas" aria-label="Gas; color and particle speed show temperature">
+                <div id="particles" class="particles"></div>
+              </div>
+              <div class="volume-marker"><span id="volume-marker">4.00 L</span></div>
+            </div>
+            <div class="work-arrow right" id="work-arrow"><span></span><b>+W</b></div>
+          </div>
+          <p class="visual-caption" id="visual-caption">Heating lets the gas push the piston outward.</p>
+        </section>
+
+        <section class="panel graph-panel" aria-label="Pressure volume graph">
+          <div class="panel-title"><span>P–V diagram</span><span class="work-note">shaded area = W by gas</span></div>
+          <svg id="pv-graph" viewBox="0 0 520 340" role="img" aria-label="Pressure versus volume graph"></svg>
+          <p class="graph-caption">Drag the state point or use the volume slider. Constraints keep the path physical.</p>
+        </section>
+      </div>
+
+      <section class="state-strip" aria-label="Live state variables">
+        <article><span>Pressure</span><strong id="p-value">101.3</strong><em>kPa</em><small id="p-change">P is locked</small></article>
+        <article><span>Volume</span><strong id="v-value">4.00</strong><em>L</em><small id="v-change">initial: 4.00 L</small></article>
+        <article><span>Temperature</span><strong id="t-value">300</strong><em>K</em><small id="t-change">initial: 300 K</small></article>
+      </section>
+
+      <div class="lower-grid">
+        <section class="panel controls-panel">
+          <div class="panel-title"><span>Control the process</span><button id="reset" class="text-btn">Reset</button></div>
+          <div id="direction-controls" class="direction-toggle" role="group" aria-label="Process direction">
+            <button id="expand" class="selected">Expansion</button><button id="compress">Compression</button>
+          </div>
+          <label id="progress-label" for="progress">Process progress <output id="progress-output">0%</output></label>
+          <input id="progress" type="range" min="0" max="100" value="0" />
+          <div class="transport"><button id="play" class="primary">▶ Play</button><button id="step">Step</button><button id="preset">Load preset</button></div>
+          <p class="compact-note">Model: <i>n</i> = 0.163 mol ideal gas, γ = 1.40. Piston and graph update together.</p>
+        </section>
+
+        <section class="panel energy-panel">
+          <div class="panel-title"><span>Energy accounting</span><span>ΔU = Q − W</span></div>
+          <div class="energy-values">
+            <div class="energy q"><span>Heat</span><strong id="q-value">+0 J</strong><small id="q-flow">no heat transfer yet</small></div>
+            <div class="energy w"><span>Work by gas</span><strong id="w-value">+0 J</strong><small id="w-flow">no piston displacement</small></div>
+            <div class="energy u"><span>Internal energy</span><strong id="u-value">+0 J</strong><small id="u-flow">temperature unchanged</small></div>
+          </div>
+          <div class="equation" id="equation">ΔU = Q − W<br><b>0 J = 0 J − 0 J</b></div>
+        </section>
+      </div>
+
+      <div class="learn-grid">
+        <section class="panel reasoning-panel">
+          <div class="panel-title"><span>What changes / what stays constant</span></div>
+          <div id="changes" class="changes"></div>
+          <div class="live-equation" id="live-equation"></div>
+        </section>
+        <section class="panel explanation-panel">
+          <div class="panel-title"><span>What is happening physically?</span><button id="explain" class="text-btn">Explain</button></div>
+          <ol id="explanation"><li>Choose expansion or compression, then move the control.</li></ol>
+        </section>
+      </div>
+
+      <section class="panel checker-panel">
+        <div class="panel-title"><span>Check the signs</span><span>Predict before checking</span></div>
+        <div class="checker-grid">
+          <div class="sign-form">
+            <label>Q <select id="guess-q"><option value="positive">positive</option><option value="negative">negative</option><option value="zero">zero</option></select></label>
+            <label>W <select id="guess-w"><option value="positive">positive</option><option value="negative">negative</option><option value="zero">zero</option></select></label>
+            <label>ΔU <select id="guess-u"><option value="positive">positive</option><option value="negative">negative</option><option value="zero">zero</option></select></label>
+            <button id="check-signs" class="primary">Check answer</button>
+            <output id="sign-feedback" role="status"></output>
+          </div>
+          <aside class="law-card" aria-live="polite">
+            <span class="law-kicker">GAS LAW</span>
+            <h3 id="law-name">Charles's Law</h3>
+            <p class="law-equation" id="law-equation">V₁ / T₁ = V₂ / T₂</p>
+            <p id="law-description">At constant pressure, volume is proportional to absolute temperature.</p>
+          </aside>
+        </div>
+      </section>
+    </section>
+
+    <section id="firstlaw" class="special-section hidden">
+      <div class="hero-card"><div class="eyebrow">THE COMMON FRAMEWORK</div><h2>First Law of Thermodynamics</h2><div class="master-equation">ΔU = Q − W</div><p>Energy enters an ideal gas as heat and leaves when the gas does work. Internal energy follows temperature.</p></div>
+      <div class="first-law-grid">
+        <article class="panel flow-card"><div class="flow">+Q <span>↓</span><b>GAS</b><span>↓</span> +W</div><p><b>+Q</b>: heat entering. <b>+W</b>: gas expanding and doing work.</p></article>
+        <article class="panel"><h3>State function vs path</h3><p>For an ideal gas, ΔU depends only on the initial and final temperatures. Different P–V paths can have different Q and W—but the same ΔU.</p><div class="path-demo">Path A: W = 260 J, Q = 510 J<br>Path B: W = 170 J, Q = 420 J<br><b>Both: ΔU = +250 J</b></div></article>
+      </div>
+      <div class="first-law-grid practice-grid">
+        <section class="panel"><div class="panel-title"><span>Numerical challenge</span><button id="new-problem" class="text-btn">New question</button></div><p id="problem-text">An ideal gas does 3700 J of work during an isothermal expansion. How much heat is added, in J?</p><div class="answer-row"><input id="problem-answer" type="number" inputmode="decimal" aria-label="Numerical answer in joules" placeholder="Answer in J" /><button id="check-problem" class="primary">Check</button><output id="problem-feedback" role="status"></output></div><p id="problem-solution" class="solution hidden"></p></section>
+        <section class="panel"><div class="panel-title"><span>Identify the process</span><button id="new-quiz" class="text-btn">New clue</button></div><p id="quiz-clue">A P–V path is a horizontal line. Pressure stays constant while the piston moves.</p><div class="answer-row"><select id="quiz-answer" aria-label="Choose the thermodynamic process"><option>Isobaric</option><option>Isochoric</option><option>Isothermal</option><option>Adiabatic</option></select><button id="check-quiz" class="primary">Check</button><output id="quiz-feedback" role="status"></output></div></section>
+      </div>
+    </section>
+
+    <section id="compare" class="special-section hidden">
+      <div class="title-row"><div><div class="eyebrow">MASTER COMPARISON</div><h2>Compare all four processes</h2></div></div>
+      <div id="comparison-cards" class="comparison-cards"></div>
+      <section class="panel"><div class="panel-title"><span>Shared P–V view</span><span>Adiabatic is steeper</span></div><svg id="compare-graph" viewBox="0 0 720 340" role="img" aria-label="Comparison P V graph"></svg></section>
+    </section>
+  </main>
+  <footer>Ideal-gas learning model · Convention used throughout: heat into gas and work by gas are positive.</footer>
+  <script defer src="js/thermodynamics.js"></script>
+  <script defer src="js/graph.js"></script>
+  <script defer src="js/app.js"></script>
+</body>
+</html>
