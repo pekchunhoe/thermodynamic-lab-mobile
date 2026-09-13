@@ -1,0 +1,8 @@
+{
+  "name": "thermodynamic-lab-mobile",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/first-law.test.cjs",
+    "test:browser": "node tests/browser.test.mjs"
+  }
+}

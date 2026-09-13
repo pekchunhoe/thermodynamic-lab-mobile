@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#09192f" />
   <title>Thermodynamics Lab</title>
   <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/first-law.css" />
 </head>
 <body>
   <header class="site-header">
@@ -120,15 +121,51 @@
     </section>
 
     <section id="firstlaw" class="special-section hidden">
-      <div class="hero-card"><div class="eyebrow">THE COMMON FRAMEWORK</div><h2>First Law of Thermodynamics</h2><div class="master-equation">ΔU = Q − W</div><p>Energy enters an ideal gas as heat and leaves when the gas does work. Internal energy follows temperature.</p></div>
-      <div class="first-law-grid">
-        <article class="panel flow-card"><div class="flow">+Q <span>↓</span><b>GAS</b><span>↓</span> +W</div><p><b>+Q</b>: heat entering. <b>+W</b>: gas expanding and doing work.</p></article>
-        <article class="panel"><h3>State function vs path</h3><p>For an ideal gas, ΔU depends only on the initial and final temperatures. Different P–V paths can have different Q and W—but the same ΔU.</p><div class="path-demo">Path A: W = 260 J, Q = 510 J<br>Path B: W = 170 J, Q = 420 J<br><b>Both: ΔU = +250 J</b></div></article>
+      <header class="hero-card fl-hero">
+        <div><div class="eyebrow">FIRST LAW OF THERMODYNAMICS · ENERGY LAB</div><h2>Follow the energy</h2><p>Transfer energy. Watch the gas respond. Balance the books.</p></div>
+        <div class="master-equation">ΔU = Q − W</div>
+      </header>
+      <div class="fl-dashboard">
+        <section class="panel fl-visual" aria-label="First Law ideal gas cylinder">
+          <div class="panel-title"><span>System &amp; surroundings</span><span id="fl-motion">ready</span></div>
+          <div id="fl-visual-host"></div>
+          <div id="fl-transfer" class="fl-transfer" aria-live="polite">Choose an action to see energy cross the boundary.</div>
+          <div id="fl-state-host"></div>
+          <p class="compact-note">U belongs to the gas. Q and W are transfers across its boundary.</p>
+        </section>
+        <section class="panel fl-accounting" aria-label="Energy controls and balance">
+          <div class="panel-title"><span>Transfer energy · 100 J per tap</span><button id="fl-reset" class="text-btn">Reset</button></div>
+          <div class="fl-actions" role="group" aria-label="Physical energy actions">
+            <button data-fl-action="heat"><span>🔥 Add Heat</span><small>Q &gt; 0</small></button>
+            <button data-fl-action="cool"><span>❄ Remove Heat</span><small>Q &lt; 0</small></button>
+            <button data-fl-action="expand"><span>↑ Expand Gas</span><small>W &gt; 0 · Work done by gas</small></button>
+            <button data-fl-action="compress"><span>↓ Compress Gas</span><small>W &lt; 0 · Work done on gas</small></button>
+          </div>
+          <p id="fl-action-note" class="compact-note">Heat: piston held fixed. Work: no heat transfer.</p>
+          <div class="energy-values fl-energy" aria-label="Cumulative energy since reset">
+            <div class="energy q"><span>Heat</span><strong id="fl-q">Q = 0 J</strong><small>Energy transferred as heat</small></div>
+            <div class="energy w"><span>Work</span><strong id="fl-w">W = 0 J</strong><small id="fl-w-meaning">Work done by the gas</small></div>
+            <div class="energy u"><span>Internal energy change</span><strong id="fl-u">ΔU = 0 J</strong><small id="fl-u-meaning">Internal energy unchanged</small></div>
+          </div>
+          <div class="equation fl-equation"><span>ENERGY BALANCE · SINCE RESET</span><div id="fl-substitution">ΔU = 0 − (0)</div><strong id="fl-result">ΔU = 0 J</strong></div>
+          <div class="fl-happened"><h3>What happened?</h3><p id="fl-explanation" role="status">Start with 300 K gas. Add or remove heat, or move the piston to transfer energy as work.</p></div>
+          <details class="fl-signs"><summary>Sign convention</summary><dl><dt>Q &gt; 0</dt><dd>Heat enters system</dd><dt>Q &lt; 0</dt><dd>Heat leaves system</dd><dt>W &gt; 0</dt><dd>Gas does work on surroundings</dd><dt>W &lt; 0</dt><dd>Work is done on gas</dd></dl><b>ΔU = Q − W</b></details>
+        </section>
+        <section class="panel fl-learning" aria-label="First Law learning modes">
+          <div class="fl-modes" role="group" aria-label="Learning mode">
+            <button data-fl-mode="explore" aria-pressed="true">Explore</button><button data-fl-mode="challenge" aria-pressed="false">Challenge</button><button data-fl-mode="quiz" aria-pressed="false">Quiz</button>
+          </div>
+          <div id="fl-explore"><div class="eyebrow">TRY IT YOURSELF</div><h3>One law. Many ways to move energy.</h3><p>Add heat, then expand the gas. How much energy stays inside?</p><p>Now reset and try compression. Can you warm the gas without adding heat?</p><p class="compact-note">Values accumulate from reset. Switching modes starts a fresh experiment.</p></div>
+          <div id="fl-challenge" class="hidden"><div class="eyebrow" id="fl-challenge-count"></div><h3 id="fl-target"></h3><p id="fl-hint"></p><div id="fl-challenge-feedback" class="fl-feedback" role="status"></div><button id="fl-new-challenge">New Challenge</button></div>
+          <div id="fl-quiz" class="hidden"><div class="eyebrow" id="fl-question-count"></div><h3 id="fl-question"></h3><div id="fl-options" class="fl-options" role="group" aria-label="Answer choices"></div><div id="fl-quiz-feedback" class="fl-feedback hidden" role="status"></div><button id="fl-next" class="hidden">Next question</button></div>
+          <div id="fl-links" class="fl-links"></div>
+        </section>
       </div>
-      <div class="first-law-grid practice-grid">
-        <section class="panel"><div class="panel-title"><span>Numerical challenge</span><button id="new-problem" class="text-btn">New question</button></div><p id="problem-text">An ideal gas does 3700 J of work during an isothermal expansion. How much heat is added, in J?</p><div class="answer-row"><input id="problem-answer" type="number" inputmode="decimal" aria-label="Numerical answer in joules" placeholder="Answer in J" /><button id="check-problem" class="primary">Check</button><output id="problem-feedback" role="status"></output></div><p id="problem-solution" class="solution hidden"></p></section>
-        <section class="panel"><div class="panel-title"><span>Identify the process</span><button id="new-quiz" class="text-btn">New clue</button></div><p id="quiz-clue">A P–V path is a horizontal line. Pressure stays constant while the piston moves.</p><div class="answer-row"><select id="quiz-answer" aria-label="Choose the thermodynamic process"><option>Isobaric</option><option>Isochoric</option><option>Isothermal</option><option>Adiabatic</option></select><button id="check-quiz" class="primary">Check</button><output id="quiz-feedback" role="status"></output></div></section>
-      </div>
+      <section class="panel fl-paths" aria-labelledby="fl-path-title">
+        <details class="fl-state-function"><summary>State function vs path</summary><div class="fl-path-content">
+        <div><div class="eyebrow">STATE FUNCTION VS PATH</div><h3 id="fl-path-title">Different transfers. Same change inside.</h3><p>Internal energy is a state function: its change depends only on the initial and final states, not the path taken. For this ideal gas, ΔU = nCᵥΔT.</p><p class="compact-note">Compare two paths with the same initial and final temperatures. Select a path to check its balance.</p></div>
+        <div><div class="fl-path-choices" role="group" aria-label="Compare energy paths"><button data-fl-path="0" aria-pressed="true">Path A<span>Q = +510 J · W = +260 J</span><b>ΔU = +250 J</b></button><button data-fl-path="1" aria-pressed="false">Path B<span>Q = +420 J · W = +170 J</span><b>ΔU = +250 J</b></button></div><div id="fl-path-equation" class="equation" role="status"></div><p class="fl-path-takeaway">Different Q · Different W · <b>Same ΔU</b></p></div>
+      </div></details></section>
     </section>
 
     <section id="compare" class="special-section hidden">
@@ -141,5 +178,8 @@
   <script defer src="js/thermodynamics.js"></script>
   <script defer src="js/graph.js"></script>
   <script defer src="js/app.js"></script>
+  <script defer src="js/first-law-state.js"></script>
+  <script defer src="js/first-law-activities.js"></script>
+  <script defer src="js/first-law-ui.js"></script>
 </body>
 </html>

@@ -1,0 +1,16 @@
+All four existing process tabs, controls, explanations, sign checks and Compare passed.
+All seven required physics cases passed through visible controls and equation substitution.
+Rapid taps, limits, reset and switching process tabs preserve valid independent state.
+All eight challenges are achievable; reset does not auto-complete zero-energy target.
+All 12 quiz answers and demonstrations, incorrect feedback, double-submit guard and reset passed.
+Leaving a quiz mid-animation settles its balance; reset and mode changes cancel pending transfers.
+320 × 568: no document overflow, controls ≥44 px high, state preserved. Columns: 284px
+360 × 800: no document overflow, controls ≥44 px high, state preserved. Columns: 324px
+375 × 812: no document overflow, controls ≥44 px high, state preserved. Columns: 339px
+390 × 844: no document overflow, controls ≥44 px high, state preserved. Columns: 354px
+412 × 915: no document overflow, controls ≥44 px high, state preserved. Columns: 376px
+768 × 1024: no document overflow, controls ≥44 px high, state preserved. Columns: 352.5px 352.5px
+1024 × 768: no document overflow, controls ≥44 px high, state preserved. Columns: 279.109px 359.75px 310.141px
+1366 × 768: no document overflow, controls ≥44 px high, state preserved. Columns: 329.406px 424.578px 366.016px
+Native touch, mouse, Enter key and reduced-motion feedback passed.
+No browser runtime errors.

@@ -1,0 +1,94 @@
+/* First Law only. Keep the process tabs' existing layout and visual language. */
+#firstlaw{min-width:0}
+#firstlaw .hidden{display:none}
+#firstlaw button,#firstlaw summary{min-height:44px;touch-action:manipulation}
+#firstlaw button:disabled{cursor:default;opacity:.65}
+#firstlaw p{font-size:13px;line-height:1.5}
+#firstlaw h3{font-size:16px;margin:10px 0 6px}
+.fl-hero{padding:12px 16px;margin-bottom:12px}
+#firstlaw .fl-hero h2{font-size:24px}
+#firstlaw .fl-hero p{margin:4px 0}
+.fl-hero .master-equation{font-size:34px;letter-spacing:-.03em}
+.fl-dashboard{display:grid;gap:12px;align-items:start}
+.fl-dashboard>*{min-width:0}
+#firstlaw .panel{padding:12px}
+#firstlaw .panel-title{margin-bottom:6px;flex-wrap:wrap}
+#firstlaw .panel-title>span:first-child{color:var(--ink);font-size:12px}
+#firstlaw .cylinder-stage{height:210px;position:relative;gap:10px;padding-top:24px}
+#firstlaw .cylinder{width:144px;height:172px;flex-shrink:0}
+#firstlaw .piston{transition:top .4s ease;height:22px}
+#firstlaw .piston i{height:38px;top:-38px}
+#firstlaw .gas{transition:height .4s ease,background .4s ease;border:2px dashed #ffffffb8}
+#firstlaw .particle{animation-timing-function:linear;animation-duration:var(--speed,1s)}
+.fl-system{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-shadow:0 1px 2px #09192f;pointer-events:none}
+.fl-system b{font-size:12px;letter-spacing:.12em}
+.fl-system span{font-size:12px}
+.fl-surroundings{position:absolute;top:2px;left:0;color:#53647a;font-size:10px;font-weight:800;letter-spacing:.1em}
+#firstlaw .heat-arrow,#firstlaw .work-arrow{width:34px;flex-shrink:0;gap:10px;opacity:0;transition:opacity .2s}
+#firstlaw .heat-arrow.active,#firstlaw .work-arrow.active{opacity:1}
+#firstlaw .heat-arrow{color:#be3d28}
+#firstlaw .heat-arrow{position:absolute;left:calc(50% - 112px);bottom:42px}
+#firstlaw .work-arrow{position:absolute;right:calc(50% - 112px)}
+#firstlaw .heat-arrow.outbound{color:#246abb}
+#firstlaw .work-arrow{color:#246abb}
+#firstlaw .heat-arrow b,#firstlaw .work-arrow b{font-size:10px}
+#firstlaw .heat-arrow span,#firstlaw .work-arrow span{width:24px}
+#firstlaw .heat-arrow span:after,#firstlaw .work-arrow span:after{content:"";position:absolute;right:-8px;top:50%;transform:translateY(-50%);border:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:10px solid currentColor}
+#firstlaw .volume-marker{display:none}
+.fl-transfer{min-height:56px;padding:8px;border-radius:8px;background:#f1f5fa;color:#34445c;font-size:12px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+.fl-transfer[data-kind=heat]{background:#fff0e9;color:#9b321e}
+.fl-transfer[data-kind=cool],.fl-transfer[data-kind=work]{background:#eaf3ff;color:#205ba8}
+.fl-transfer.pulse{animation:fl-pulse .7s ease-out}
+@keyframes fl-pulse{from{transform:translateY(3px);opacity:.45}to{transform:translateY(0);opacity:1}}
+#firstlaw .state-strip{margin:10px 0 0}
+#firstlaw .state-strip article{padding:9px 7px;min-width:0}
+#firstlaw .state-strip strong{font-size:19px;letter-spacing:-.04em}
+#firstlaw .state-strip small{display:none}
+.fl-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.fl-actions button{text-align:left;padding:9px 8px;min-width:0}
+.fl-actions button span{font-size:12px;display:block}
+.fl-actions button small{display:block;font-size:10px;font-weight:500;color:#53647a;margin-top:4px}
+.fl-actions button:first-child{background:#fff3ed;border-color:#edc6b9}
+.fl-actions button:nth-child(2){background:#edf5ff;border-color:#bcd2ee}
+.fl-actions button:hover{border-color:var(--blue)}
+.fl-energy{margin-top:14px;gap:8px;grid-template-columns:1fr}
+.fl-energy .energy{padding:6px 8px;background:#f7f9fc;border-radius:0 6px 6px 0}
+.fl-energy .energy span{font-size:11px}
+.fl-energy .energy strong{font-size:16px;display:block;overflow-wrap:anywhere}
+.fl-energy .energy small{font-size:11px;color:#53647a}
+.fl-equation{font-size:14px;margin-top:12px;overflow-wrap:anywhere;line-height:1.8}
+.fl-equation>span{font:700 9px/1.4 ui-sans-serif,system-ui;letter-spacing:.06em;color:#53647a}
+.fl-equation strong{font-size:19px;color:#18765e}
+#firstlaw .fl-happened p{margin:4px 0 10px;min-height:3em}
+.fl-signs{border-top:1px solid var(--line);padding-top:4px;font-size:12px}
+.fl-signs summary{cursor:pointer;padding:12px 0;font-weight:700}
+.fl-signs summary:focus-visible{outline:3px solid #f4bd60;outline-offset:2px}
+.fl-signs dl{display:grid;grid-template-columns:50px 1fr;gap:7px;margin:2px 0 10px}
+.fl-signs dt{font-weight:700}.fl-signs dd{margin:0}
+.fl-modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-bottom:16px}
+.fl-modes button{font-size:12px;padding:8px 4px}
+#firstlaw button[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.fl-options{display:grid;gap:7px;margin-top:12px}
+.fl-options button{font-size:13px;text-align:left;font-weight:500}
+#firstlaw .fl-options button.correct{background:#e6f6ef;border-color:#218062;color:#155c46;opacity:1}
+#firstlaw .fl-options button.incorrect{background:#fff0e9;border-color:#b74d33;color:#8c301b;opacity:1}
+.fl-feedback{margin:12px 0;padding:10px;border-radius:8px;background:#f1f5fa;font-size:12px;overflow-wrap:anywhere}
+.fl-feedback p{margin:5px 0}
+.fl-feedback.success{background:#e6f6ef;color:#155c46}
+.fl-links{border-top:1px solid var(--line);margin-top:16px}
+#firstlaw .fl-links p{font-size:12px;margin:10px 0 5px}
+.fl-links button{font-size:12px;color:#205ba8}
+.fl-paths{display:grid;gap:12px;margin-top:12px}
+#firstlaw .fl-state-function summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-size:14px;font-weight:800;color:var(--ink)}
+#firstlaw .fl-state-function summary:focus-visible{outline:3px solid #f4bd60;outline-offset:2px}
+.fl-path-content{display:grid;gap:12px;padding-top:4px}
+#firstlaw .fl-paths p{margin:6px 0}
+.fl-path-choices{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.fl-path-choices button{text-align:left;font-size:13px;padding:10px 8px}
+.fl-path-choices span,.fl-path-choices b{display:block;font-size:11px;font-weight:500;margin-top:5px}
+.fl-path-choices b{font-weight:700}
+.fl-path-takeaway{font-size:12px;color:#18765e}
+@media(min-width:360px){.fl-energy{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.fl-energy .energy{padding:6px}.fl-energy .energy strong{font-size:13px}.fl-energy .energy small{font-size:10px}.fl-energy .energy span{min-height:32px}}
+@media(min-width:760px){.fl-hero{display:flex;align-items:center;justify-content:space-between;gap:16px}.fl-dashboard{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.fl-visual{grid-column:1}.fl-accounting{grid-column:2;grid-row:1 / span 2}.fl-learning{grid-column:1}.fl-path-content{grid-template-columns:1fr 1fr}#firstlaw .cylinder-stage{height:250px}#firstlaw .cylinder{height:200px}}
+@media(min-width:1000px){.fl-dashboard{grid-template-columns:minmax(0,.9fr) minmax(0,1.16fr) minmax(0,1fr)}.fl-accounting{grid-row:1}.fl-learning{grid-column:3;grid-row:1}.fl-hero{padding:14px 18px}.fl-hero .master-equation{font-size:40px}}
+@media(prefers-reduced-motion:reduce){#firstlaw .particle{animation:none}#firstlaw .pulse{animation:none}#firstlaw .piston,#firstlaw .gas{transition:none}}
